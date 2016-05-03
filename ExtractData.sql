@@ -7,7 +7,7 @@
 -- the data values are hourly mediated 
 -------------------------------------------------------------------------------------------------------
 
-SELECT m.punti_monitoraggio_id,s.metadati_id,strftime('%Y-%m-%d %H', s.dataora / 1000, 'unixepoch') || ":00" as dataora,avg(s.valore) as valore,s.affidabilita
+SELECT m.punti_monitoraggio_id,s.metadati_id,strftime('%Y-%m-%d %H', s.dataora / 1000, 'unixepoch') || ":00" as dataora, round(avg(s.valore),1) as valore,s.affidabilita
 FROM serie_temporali s,metadati m
 WHERE s.metadati_id IN (
 	SELECT m.id FROM metadati m
@@ -23,4 +23,4 @@ WHERE s.metadati_id IN (
 AND s.dataora>=strftime('%s','2003-01-01 00:00:00')*1000
 AND s.dataora<strftime('%s','2014-01-01 00:00:00')*1000
 AND s.metadati_id=m.id
-GROUP BY s.metadati_id, strftime('%Y-%m-%d %H', s.dataora / 1000, 'unixepoch')
+GROUP BY m.punti_monitoraggio_id, strftime('%Y-%m-%d %H', s.dataora / 1000, 'unixepoch')
