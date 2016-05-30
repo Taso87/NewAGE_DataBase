@@ -3,8 +3,8 @@
 --    - type of dataseries (rainfall = 2, temperature = 6, relative humidity = 8, radiation = 13)
 --    - basin mask with a buffer (the buffer is on station for convenience) 
 --    - time (convert to unix epoch)
--- the time is converted to human date
--- the data values are hourly mediated 
+-- "dataora" is converted to human date
+-- data values are aggregated to hourly steps
 -------------------------------------------------------------------------------------------------------
 
 SELECT m.punti_monitoraggio_id,s.metadati_id,strftime('%Y-%m-%d %H', s.dataora / 1000, 'unixepoch') || ":00" as dataora, round(avg(s.valore),1) as valore,s.affidabilita
